@@ -1,0 +1,14 @@
+{
+  "name": "scalekit-cognee-respanse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hackathon PoC: Slack to Jira to local code branch with Scalekit, Cognee-style memory, and Respan model routing.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "eval": "node scripts/evaluate.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

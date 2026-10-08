@@ -1,0 +1,118 @@
+{
+  "createdAt": "2026-10-08T00:48:18.822Z",
+  "baseUrl": "http://localhost:3102",
+  "score": 8,
+  "total": 8,
+  "passRate": 1,
+  "beforeAccessScore": {
+    "score": 2,
+    "total": 2
+  },
+  "afterAccessScore": {
+    "score": 1,
+    "total": 1
+  },
+  "results": [
+    {
+      "id": "workflow-detects-bug",
+      "type": "workflow",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack",
+        "source:github"
+      ],
+      "expectedSources": [
+        "source:slack"
+      ]
+    },
+    {
+      "id": "workflow-creates-jira",
+      "type": "workflow",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack",
+        "source:github"
+      ],
+      "expectedSources": []
+    },
+    {
+      "id": "workflow-prepares-pr",
+      "type": "workflow",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack",
+        "source:github"
+      ],
+      "expectedSources": []
+    },
+    {
+      "id": "workflow-uses-github-context",
+      "type": "workflow",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack",
+        "source:github"
+      ],
+      "expectedSources": [
+        "source:github"
+      ]
+    },
+    {
+      "id": "alice-before-sees-cross-source",
+      "type": "access_before",
+      "as_user": "alice@acme.example",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:github",
+        "source:slack"
+      ],
+      "expectedSources": [
+        "source:slack",
+        "source:github"
+      ]
+    },
+    {
+      "id": "bob-before-is-limited",
+      "type": "access_before",
+      "as_user": "bob@acme.example",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack"
+      ],
+      "expectedSources": [
+        "source:slack"
+      ]
+    },
+    {
+      "id": "bob-after-grant-sees-github",
+      "type": "access_after",
+      "as_user": "bob@acme.example",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:github",
+        "source:slack"
+      ],
+      "expectedSources": [
+        "source:github"
+      ]
+    },
+    {
+      "id": "respan-run-index-present",
+      "type": "workflow",
+      "passed": true,
+      "reason": "",
+      "observedSources": [
+        "source:slack",
+        "source:github"
+      ],
+      "expectedSources": []
+    }
+  ]
+}

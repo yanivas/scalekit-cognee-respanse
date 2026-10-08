@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scalekit Cognee Respanse</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --critical-ink: #18202a;
+        --critical-muted: #667085;
+        --critical-line: #d8dee8;
+        --critical-panel: #ffffff;
+        --critical-surface: #f4f7fb;
+        --critical-dark: #172133;
+        --critical-accent: #0f8c6d;
+        --critical-blue: #2f5bea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        background: var(--critical-surface);
+        color: var(--critical-ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .sidebar {
+        min-height: 100vh;
+        padding: 24px;
+        background: var(--critical-dark);
+        color: #f7fbff;
+      }
+
+      .brand {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .brand-mark,
+      .pill {
+        display: inline-grid;
+        place-items: center;
+        border-radius: 8px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        background: #12a982;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      nav,
+      .task-menu,
+      .status-card {
+        margin-top: 24px;
+      }
+
+      nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      nav a {
+        color: #dbe7f4;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+      }
+
+      main {
+        width: 100%;
+        max-width: 1280px;
+        padding: 28px;
+        display: grid;
+        gap: 22px;
+      }
+
+      .hero,
+      .panel {
+        background: var(--critical-panel);
+        border: 1px solid var(--critical-line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+
+      .hero {
+        min-height: 180px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 20px;
+      }
+
+      .hero h2 {
+        margin-top: 8px;
+        font-size: 40px;
+        line-height: 1.02;
+      }
+
+      .eyebrow {
+        color: var(--critical-accent);
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 900;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 8px;
+        padding: 0 14px;
+        background: var(--critical-blue);
+        color: white;
+        font-weight: 800;
+      }
+
+      input {
+        min-height: 42px;
+        border: 1px solid var(--critical-line);
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+
+      .status-card,
+      .task-menu-item,
+      .mini-card,
+      .overview-strip article,
+      .task-detail .task-block {
+        border: 1px solid var(--critical-line);
+        border-radius: 8px;
+      }
+
+      .app-loading {
+        opacity: 0.72;
+      }
+
+      @media (max-width: 980px) {
+        body {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          min-height: auto;
+        }
+
+        .hero {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .hero h2 {
+          font-size: 31px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="app-loading">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">SR</span>
+        <div>
+          <h1>Scalekit Cognee Respanse</h1>
+          <p>Automatic Slack to branch workflow</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#setup">Setup</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#overview">Overview</a>
+        <a href="#access">Access</a>
+        <a href="#respan">Respan</a>
+        <a href="#trace">Trace</a>
+      </nav>
+
+      <div class="task-menu">
+        <p>Tasks</p>
+        <div id="task-menu-list" class="task-menu-list"></div>
+      </div>
+
+      <div class="status-card">
+        <span id="mode-pill" class="pill">mock</span>
+        <p id="env-status">Loading config...</p>
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Hackathon PoC</p>
+          <h2>Run Slack requests through Jira, memory, code, and PR prep automatically.</h2>
+        </div>
+        <div class="hero-actions">
+          <button id="reset-btn" class="ghost-button" type="button">
+            <span class="button-icon">R</span>
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <section id="setup" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">1. Setup</p>
+            <h3>Connector readiness</h3>
+          </div>
+        </div>
+        <div class="setup-grid" id="setup-grid"></div>
+      </section>
+
+      <section id="workflow" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">2. Workflow</p>
+            <h3>Automatic task run</h3>
+          </div>
+          <form id="workflow-form" class="inline-form">
+            <input id="keyword-input" placeholder="agent, bug, feature..." value="agent" />
+            <button type="submit">
+              <span class="button-icon">A</span>
+              Run Workflow
+            </button>
+          </form>
+        </div>
+        <div id="run-status" class="run-status"></div>
+      </section>
+
+      <section id="overview" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">3. Overview</p>
+            <h3>Task stage dashboard</h3>
+          </div>
+        </div>
+        <div id="stage-overview" class="stage-overview"></div>
+      </section>
+
+      <section id="access" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Access</p>
+            <h3>User-scoped memory</h3>
+          </div>
+          <button id="access-demo-btn" type="button">
+            <span class="button-icon">U</span>
+            Run Access Demo
+          </button>
+        </div>
+        <div id="access-demo" class="access-demo"></div>
+      </section>
+
+      <section id="task-detail-panel" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Task</p>
+            <h3 id="task-detail-title">Selected task</h3>
+          </div>
+        </div>
+        <div id="task-detail" class="task-detail"></div>
+      </section>
+
+      <section id="respan" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">4. Respan</p>
+            <h3>Usage index</h3>
+          </div>
+        </div>
+        <div id="respan-usage" class="usage-panel"></div>
+      </section>
+
+      <section id="trace" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Trace</p>
+            <h3>Run timeline</h3>
+          </div>
+        </div>
+        <ol id="timeline" class="timeline"></ol>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

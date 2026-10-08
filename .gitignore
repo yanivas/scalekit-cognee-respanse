@@ -1,0 +1,7 @@
+.DS_Store
+.env
+.venv/
+.venv.py39-tmp-*/
+.cognee-data/
+.hackathon-data/
+demo-repo/

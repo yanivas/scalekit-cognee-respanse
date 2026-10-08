@@ -1,0 +1,57 @@
+[
+  {
+    "id": "workflow-detects-bug",
+    "type": "workflow",
+    "question": "Does the workflow detect the can't login request as a shippable task?",
+    "must_mention": ["can't login", "Bug"],
+    "expected_sources": ["source:slack"]
+  },
+  {
+    "id": "workflow-creates-jira",
+    "type": "workflow",
+    "question": "Does the workflow create or draft a Jira ticket for the Slack request?",
+    "must_mention": ["Jira", "In Progress"],
+    "expected_action": "jira_ticket"
+  },
+  {
+    "id": "workflow-prepares-pr",
+    "type": "workflow",
+    "question": "Does the workflow prepare code changes and a PR payload?",
+    "must_mention": ["src/issueParser.js", "pullRequest"],
+    "expected_action": "pull_request_payload"
+  },
+  {
+    "id": "workflow-uses-github-context",
+    "type": "workflow",
+    "question": "Does the brain include GitHub context as a second source?",
+    "expected_sources": ["source:github"]
+  },
+  {
+    "id": "alice-before-sees-cross-source",
+    "type": "access_before",
+    "as_user": "alice@acme.example",
+    "question": "Which Slack request is ready to ship, and what repo context supports it?",
+    "expected_sources": ["source:slack", "source:github"]
+  },
+  {
+    "id": "bob-before-is-limited",
+    "type": "access_before",
+    "as_user": "bob@acme.example",
+    "question": "Which Slack request is ready to ship, and what repo context supports it?",
+    "expected_sources": ["source:slack"],
+    "must_not_mention": ["source:github"]
+  },
+  {
+    "id": "bob-after-grant-sees-github",
+    "type": "access_after",
+    "as_user": "bob@acme.example",
+    "question": "Which Slack request is ready to ship, and what repo context supports it?",
+    "expected_sources": ["source:github"]
+  },
+  {
+    "id": "respan-run-index-present",
+    "type": "workflow",
+    "question": "Does the run expose Respan trace metadata or an explicit fallback?",
+    "must_mention": ["Respan", "traceName"]
+  }
+]
