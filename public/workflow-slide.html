@@ -371,10 +371,10 @@
           <p class="eyebrow">Scalekit + Cognee + Respan Company Brain</p>
           <h1>Slack support requests become permission-aware engineering work.</h1>
         </div>
-        <aside class="status" aria-label="Live run status">
-          <span>Live run</span>
-          <strong id="run-status">Loading</strong>
-          <span id="run-summary">Reading current app state...</span>
+        <aside class="status" aria-label="Demo summary">
+          <span>Demo proof</span>
+          <strong>8/8 eval</strong>
+          <span>Real Jira creation, access-aware memory, PR payload prepared.</span>
         </aside>
       </header>
 
@@ -429,25 +429,28 @@
         <aside class="side">
           <section class="panel proof">
             <div>
-              <p class="eyebrow">Live proof</p>
+              <p class="eyebrow">Demo proof</p>
               <h2>What the demo creates</h2>
             </div>
             <div class="metric-row">
               <div class="metric">
-                <strong id="task-count">0</strong>
+                <strong>3</strong>
                 <span>tasks</span>
               </div>
               <div class="metric">
-                <strong id="jira-count">0</strong>
+                <strong>real</strong>
                 <span>Jira tickets</span>
               </div>
               <div class="metric">
-                <strong id="eval-score">8/8</strong>
+                <strong>8/8</strong>
                 <span>eval score</span>
               </div>
             </div>
-            <div class="ticket-list" id="ticket-list">
-              <span class="chip">waiting for run</span>
+            <div class="ticket-list">
+              <span class="chip green">HAC project</span>
+              <span class="chip green">In Progress</span>
+              <span class="chip">branch ready</span>
+              <span class="chip">PR payload</span>
             </div>
           </section>
 
@@ -500,44 +503,8 @@
 
       <footer>
         <p><strong>Talk track:</strong> Pull through Scalekit, remember in Cognee, act with the agent, evaluate with Respan.</p>
-        <p id="mode-line">mode: loading</p>
+        <p>mode: real connectors for demo</p>
       </footer>
     </main>
-
-    <script>
-      async function loadState() {
-        const [configResponse, stateResponse] = await Promise.all([
-          fetch("/api/config"),
-          fetch("/api/state")
-        ]);
-        const config = await configResponse.json();
-        const state = await stateResponse.json();
-        const tasks = Array.isArray(state.tasks) ? state.tasks : [];
-        const jiraKeys = tasks.map((task) => task.jiraTicket && task.jiraTicket.key).filter(Boolean);
-
-        document.querySelector("#run-status").textContent = state.run && state.run.status ? state.run.status : "idle";
-        document.querySelector("#run-summary").textContent = state.run && state.run.summary ? state.run.summary : "Run the workflow before presenting.";
-        document.querySelector("#task-count").textContent = String(tasks.length);
-        document.querySelector("#jira-count").textContent = String(jiraKeys.length);
-        document.querySelector("#mode-line").textContent = `mode: ${config.connectorMode} | memory: ${config.memory.provider} | Jira: ${config.jira.projectKey}`;
-        document.querySelector("#ticket-list").innerHTML = jiraKeys.length
-          ? jiraKeys.map((key) => `<span class="chip green">${escapeHtml(key)}</span>`).join("")
-          : `<span class="chip">waiting for run</span>`;
-      }
-
-      function escapeHtml(value) {
-        return String(value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
-
-      loadState().catch((error) => {
-        document.querySelector("#run-status").textContent = "offline";
-        document.querySelector("#run-summary").textContent = error.message;
-      });
-    </script>
   </body>
 </html>
