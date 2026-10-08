@@ -3,7 +3,7 @@
 ## Team
 
 * Team name: Scalekit Cognee Respanse
-* Participants: Savinay
+* Participants: Savinay, Srikanth
 * Company Brain / project name: Scalekit Cognee Respanse
 
 ## Company Brain Overview
