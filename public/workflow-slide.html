@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Company Brain Workflow Slide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #5c6878;
+        --line: #d7deea;
+        --paper: #ffffff;
+        --wash: #f3f7fb;
+        --green: #0f8c6d;
+        --blue: #2f5bea;
+        --amber: #b56a1d;
+        --red: #b42318;
+        --shadow: 0 24px 70px rgba(31, 43, 62, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #dfe7f1;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .slide {
+        width: min(1440px, 100vw);
+        min-height: min(810px, 100vh);
+        padding: 30px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 16px;
+        background: var(--wash);
+        box-shadow: var(--shadow);
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 22px;
+        align-items: end;
+      }
+
+      .eyebrow {
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 870px;
+        margin-top: 8px;
+        font-size: clamp(38px, 4.5vw, 58px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .status {
+        min-width: 270px;
+        display: grid;
+        gap: 6px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .status strong {
+        font-size: 26px;
+        line-height: 1;
+      }
+
+      .status span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: 1.08fr 1fr;
+        gap: 14px;
+        min-height: 0;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .workflow {
+        padding: 14px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        align-content: stretch;
+      }
+
+      .stage {
+        min-height: 500px;
+        position: relative;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+      }
+
+      .stage:not(:last-child)::after {
+        content: "to";
+        position: absolute;
+        top: 72px;
+        right: -20px;
+        width: 38px;
+        height: 26px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--blue);
+        color: white;
+        font-size: 12px;
+        font-weight: 900;
+        z-index: 2;
+      }
+
+      .stage-number {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #e9f0ff;
+        color: var(--blue);
+        font-weight: 900;
+      }
+
+      .stage h2 {
+        font-size: 21px;
+        line-height: 1.08;
+      }
+
+      .stage p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.35;
+      }
+
+      .chips {
+        align-self: end;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #eef3f8;
+        color: #27354a;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .chip.green {
+        background: #e6f7f1;
+        color: #08735a;
+      }
+
+      .chip.blue {
+        background: #e9f0ff;
+        color: #2649bd;
+      }
+
+      .chip.amber {
+        background: #fff3e4;
+        color: #95520e;
+      }
+
+      .side {
+        display: grid;
+        gap: 10px;
+      }
+
+      .proof,
+      .access,
+      .evals {
+        padding: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .proof h2,
+      .access h2,
+      .evals h2 {
+        font-size: 21px;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .metric {
+        min-height: 70px;
+        display: grid;
+        align-content: center;
+        gap: 5px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+      }
+
+      .metric strong {
+        font-size: 23px;
+        line-height: 1;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .ticket-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .access-flow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .user-card {
+        min-height: 82px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+      }
+
+      .user-card h3 {
+        font-size: 15px;
+        margin-bottom: 5px;
+      }
+
+      .user-card p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      .grant {
+        grid-column: 1 / -1;
+        min-height: 46px;
+        display: grid;
+        align-content: center;
+        padding: 9px 10px;
+        border-radius: 8px;
+        background: #172033;
+        color: #eef5ff;
+      }
+
+      .grant strong {
+        color: #9ae5d1;
+      }
+
+      .eval-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .eval-item {
+        min-height: 40px;
+        padding: 7px 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+        font-size: 11px;
+        line-height: 1.25;
+      }
+
+      .eval-item strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--blue);
+        font-size: 10px;
+      }
+
+      footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer strong {
+        color: var(--ink);
+      }
+
+      @media (max-width: 860px) {
+        .slide {
+          min-height: 100vh;
+          padding: 24px;
+        }
+
+        header,
+        .main-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .workflow {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .stage {
+          min-height: 300px;
+        }
+
+        .stage::after {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .workflow,
+        .metric-row,
+        .access-flow,
+        footer {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="slide">
+      <header>
+        <div>
+          <p class="eyebrow">Scalekit + Cognee + Respan Company Brain</p>
+          <h1>Slack support requests become permission-aware engineering work.</h1>
+        </div>
+        <aside class="status" aria-label="Live run status">
+          <span>Live run</span>
+          <strong id="run-status">Loading</strong>
+          <span id="run-summary">Reading current app state...</span>
+        </aside>
+      </header>
+
+      <section class="main-grid" aria-label="Workflow overview">
+        <div class="panel workflow">
+          <article class="stage">
+            <span class="stage-number">1</span>
+            <h2>Pull with Scalekit</h2>
+            <p>Use the acting user's connected accounts to pull Slack requests and GitHub context, then write back to Jira.</p>
+            <div class="chips">
+              <span class="chip green">Slack</span>
+              <span class="chip green">GitHub</span>
+              <span class="chip green">Jira</span>
+              <span class="chip">real mode</span>
+            </div>
+          </article>
+
+          <article class="stage">
+            <span class="stage-number">2</span>
+            <h2>Remember in Cognee</h2>
+            <p>Store Slack and GitHub facts with provenance tags and user-scoped datasets.</p>
+            <div class="chips">
+              <span class="chip blue">source:slack</span>
+              <span class="chip blue">source:github</span>
+              <span class="chip">dataset per user</span>
+            </div>
+          </article>
+
+          <article class="stage">
+            <span class="stage-number">3</span>
+            <h2>Act as an agent</h2>
+            <p>Classify each request, create Jira work, move it forward, and prepare a branch plus PR payload.</p>
+            <div class="chips">
+              <span class="chip amber">Bug or Story</span>
+              <span class="chip amber">In Progress</span>
+              <span class="chip">PR payload</span>
+            </div>
+          </article>
+
+          <article class="stage">
+            <span class="stage-number">4</span>
+            <h2>Evaluate with Respan</h2>
+            <p>Trace model calls when enabled and score the workflow with repeatable scenarios.</p>
+            <div class="chips">
+              <span class="chip green">8/8 eval</span>
+              <span class="chip">before/after</span>
+              <span class="chip">access checked</span>
+            </div>
+          </article>
+        </div>
+
+        <aside class="side">
+          <section class="panel proof">
+            <div>
+              <p class="eyebrow">Live proof</p>
+              <h2>What the demo creates</h2>
+            </div>
+            <div class="metric-row">
+              <div class="metric">
+                <strong id="task-count">0</strong>
+                <span>tasks</span>
+              </div>
+              <div class="metric">
+                <strong id="jira-count">0</strong>
+                <span>Jira tickets</span>
+              </div>
+              <div class="metric">
+                <strong id="eval-score">8/8</strong>
+                <span>eval score</span>
+              </div>
+            </div>
+            <div class="ticket-list" id="ticket-list">
+              <span class="chip">waiting for run</span>
+            </div>
+          </section>
+
+          <section class="panel access">
+            <div>
+              <p class="eyebrow">Access story</p>
+              <h2>Same question, different memory</h2>
+            </div>
+            <div class="access-flow">
+              <article class="user-card">
+                <h3>Alice</h3>
+                <p>Owns the engineering dataset and recalls Slack plus GitHub context.</p>
+              </article>
+              <article class="user-card">
+                <h3>Bob before grant</h3>
+                <p>Starts with limited Slack-only context and cannot see GitHub-backed evidence.</p>
+              </article>
+              <div class="grant">
+                <strong>Dataset share:</strong> Alice grants Bob read access.
+              </div>
+              <article class="user-card">
+                <h3>Bob after grant</h3>
+                <p>Now recalls the GitHub context needed to answer the same question.</p>
+              </article>
+              <article class="user-card">
+                <h3>Demo note</h3>
+                <p>Jira creation is live. GitHub PR creation is deferred until the local branch is pushed.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel evals">
+            <div>
+              <p class="eyebrow">8 eval scenarios</p>
+              <h2>What the score proves</h2>
+            </div>
+            <div class="eval-grid">
+              <div class="eval-item"><strong>1. Detect bug</strong>Can't login Slack request becomes a Bug.</div>
+              <div class="eval-item"><strong>2. Create Jira</strong>Ticket exists and moves to In Progress.</div>
+              <div class="eval-item"><strong>3. Prepare PR</strong>Code change and PR payload are produced.</div>
+              <div class="eval-item"><strong>4. Use GitHub</strong>Repo context appears as source:github.</div>
+              <div class="eval-item"><strong>5. Alice before</strong>Alice sees Slack plus GitHub.</div>
+              <div class="eval-item"><strong>6. Bob before</strong>Bob sees Slack only.</div>
+              <div class="eval-item"><strong>7. Bob after</strong>Bob sees GitHub after grant.</div>
+              <div class="eval-item"><strong>8. Respan</strong>Trace metadata or fallback is exposed.</div>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <footer>
+        <p><strong>Talk track:</strong> Pull through Scalekit, remember in Cognee, act with the agent, evaluate with Respan.</p>
+        <p id="mode-line">mode: loading</p>
+      </footer>
+    </main>
+
+    <script>
+      async function loadState() {
+        const [configResponse, stateResponse] = await Promise.all([
+          fetch("/api/config"),
+          fetch("/api/state")
+        ]);
+        const config = await configResponse.json();
+        const state = await stateResponse.json();
+        const tasks = Array.isArray(state.tasks) ? state.tasks : [];
+        const jiraKeys = tasks.map((task) => task.jiraTicket && task.jiraTicket.key).filter(Boolean);
+
+        document.querySelector("#run-status").textContent = state.run && state.run.status ? state.run.status : "idle";
+        document.querySelector("#run-summary").textContent = state.run && state.run.summary ? state.run.summary : "Run the workflow before presenting.";
+        document.querySelector("#task-count").textContent = String(tasks.length);
+        document.querySelector("#jira-count").textContent = String(jiraKeys.length);
+        document.querySelector("#mode-line").textContent = `mode: ${config.connectorMode} | memory: ${config.memory.provider} | Jira: ${config.jira.projectKey}`;
+        document.querySelector("#ticket-list").innerHTML = jiraKeys.length
+          ? jiraKeys.map((key) => `<span class="chip green">${escapeHtml(key)}</span>`).join("")
+          : `<span class="chip">waiting for run</span>`;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      loadState().catch((error) => {
+        document.querySelector("#run-status").textContent = "offline";
+        document.querySelector("#run-summary").textContent = error.message;
+      });
+    </script>
+  </body>
+</html>
