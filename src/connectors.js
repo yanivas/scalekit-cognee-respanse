@@ -5,13 +5,13 @@ const mockSlackMessages = [
     id: "slack-1",
     author: "Maya",
     ts: "2026-10-07T15:01:00.000Z",
-    text: "bug: the issue parser ignores messages that say 'can't login' unless the word bug is included."
+    text: "can't login after password reset; the issue parser should classify this as a Bug even when I do not say the word bug."
   },
   {
     id: "slack-2",
     author: "Ravi",
     ts: "2026-10-07T15:04:00.000Z",
-    text: "feature request: should support creating a Jira Story when someone asks for a new workflow."
+    text: "feature request: when support asks for a new workflow, create a Jira Story and prepare a PR payload automatically."
   },
   {
     id: "slack-3",
